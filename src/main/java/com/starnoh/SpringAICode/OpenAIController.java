@@ -1,6 +1,7 @@
 package com.starnoh.SpringAICode;
 
 
+import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,17 +10,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class OpenAIController {
 
 
-    private final GeminiService geminiService;
+    private OpenAiChatModel chatModel;
 
-    public OpenAIController(GeminiService geminiService) {
+    public OpenAIController(OpenAiChatModel chatModel) {
 
-        this.geminiService = geminiService;
+        this.chatModel = chatModel;
     }
 
     @RequestMapping("/api/{message}")
     public String getAnswer(@PathVariable String message) {
 
-        return geminiService.getAnswer(message);
+        return chatModel.call(message);
     }
 
 
